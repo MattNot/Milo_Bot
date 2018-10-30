@@ -33,7 +33,7 @@ bot.hears(/Watch (.+)/,
 		{
 			m=match['match'][1];
 			console.log(m);
-			//console.log(json);
+
 			if(json[m]==undefined)
 			{
 				doRequestAndCron(m, match);
@@ -47,7 +47,7 @@ const doRequestAndCron= (m, match) =>
 	{
 		json[m]=JSON.parse(body);
 
-		//console.log(json[m].error)
+
 		if(json[m].error)
 		{
 			match.reply("This battle doesn't exist!");
@@ -57,8 +57,7 @@ const doRequestAndCron= (m, match) =>
 		console.log("added ".concat(m));
 		match.reply("Very well! I'll notice you at t10-5-2 :)")
 		crono[m]=new Cron('00 * * * * *',()=>{
-			//console.log(m);
-			//console.log('sto facendo il crono'.concat(json[m].time['minute']).concat(json[m].region['name']))
+			
 			json[m].time['minute']--;
 			if(json[m].time['hour']==0 && json[m].time['minute']==10 || json[m].time['minute']==5 || json[m].time['minute']==2)
 				match.reply('t'.concat(json[m].time['minute']).concat(" of ").concat(json[m].defender['name']).concat(" vs ").concat(json[m].attacker['name']).concat(" in ").concat(json[m].region['name']));
@@ -70,7 +69,7 @@ const doRequestAndCron= (m, match) =>
 				 }
 		},null,true)
 	}
-		//crono[m].start;
+		
 	})
 }
 bot.startPolling()
